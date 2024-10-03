@@ -8,34 +8,54 @@
 ## Установка
 
 ```bash
-composer require league/omnipay receiver1/omnipay-tinkoff
+composer require league/omnipay receiver1/omnipay-pzmpay
 ```
 
 
-## Использование 
+## Использование
+
+### Инициализация шлюза
 ```php
 // Создаём новый платёжный шлюз
 $gateway = Omnipay::create('PZMPay');
 
 // Устанавливаем "секретный код"
 $gateway->setSecretCode('secretCode');
+```
 
+### Создание платежа
+```php
 // Создаём новый платёж на сумму 10 руб. 00 коп.
-$request = $gateway->purchase([
+$purchaseResponse = $gateway->purchase([
   'amount' => 10,
   'currency' => 'RUB',
   'description' => 'Пополнение баланса 1337 Cheats',
-]);
+])->send();
 
-$response = $request->send();
-
-if (!$response->isSuccessful()) {
+if (!$purchaseResponse->isSuccessful()) {
   throw new Exception($response->getMessage());
 }
 
 // Получаем идентификатор платежа в PZMPay
-$invoiceId = $response->getTransactionId();
+$invoiceId = $purchaseResponse->getTransactionId(); 
+// Получаем ссылку на форму оплаты PZMPay
+$redirectUrl =$purchaseResponse->getRedirectUrl(); 
+```
 
-// Получаем ссылку на форму оплаты в PZMPay
-$redirectUrl = response->getRedirectUrl();
+### Проверка платежа
+```php
+$notification = $gateway->acceptNotification($data);
+if ($notification->getTransactionStatus() == NotificationInterface::STATUS_COMPLETED) {
+  /** @var TransactionModel $incomingTransaction */
+  $incomingTransaction = $notification->getTransactionReference();
+
+  $transactionResponse = $gateway->fetchTransaction([
+    'transactionId' => $incomingTransaction->getId(),
+  ])->send();
+
+  /** @var TransactionModel $trustedTransaction */
+  $trustedTransaction = $transactionResponse->getTransactionReference();
+
+  print ($trustedTransaction->getAmount());
+}
 ```

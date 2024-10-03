@@ -3,7 +3,7 @@
 namespace Omnipay\PZMPay\Message;
 
 class PurchaseRequest extends AbstractRequest {
-  protected function getMethod(): string {
+  public function getMethod(): string {
     return 'payment/create';
   }
 
