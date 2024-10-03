@@ -3,13 +3,13 @@
 namespace Omnipay\PZMPay\Model;
 
 class TransactionModel {
-  private string $id;
-  private float $amount;
-  private string $currency;
-  private string $status;
-  private int $createdAt;
-  private int $updatedAt;
-  private string $description;
+  private $id;
+  private $amount;
+  private $currency;
+  private $status;
+  private $createdAt;
+  private $updatedAt;
+  private $description;
 
   public function __construct(string $id, float $amount, string $currency, string $status, int $createdAt, int $updatedAt, string $description) {
     $this->id = $id;
