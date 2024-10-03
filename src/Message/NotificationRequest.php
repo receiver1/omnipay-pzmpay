@@ -28,7 +28,7 @@ class NotificationRequest extends AbstractRequest implements NotificationInterfa
   public function isValid(): bool {
     $headers = $this->httpRequest->headers;
     return $headers->has('Authorization') &&
-      $headers->get('Authorization') === $this->getSecretCode();
+      $headers->get('Authorization') === 'Bearer ' . $this->getSecretCode();
   }
 
   public function getTransactionReference(): TransactionModel {
