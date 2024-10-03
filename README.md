@@ -2,7 +2,7 @@
 Поддержка эквайринга PZMPay для Omnipay 
 
 [![Total Downloads](https://img.shields.io/packagist/dt/receiver1/omnipay-pzmpay.svg?style=flat-square)](https://packagist.org/packages/receiver1/omnipay-pzmpay)
-[![Latest Version](https://img.shields.io/packagist/v/receiver1/omnipay-pzmpay.svg?style=flat-square)](https://github.com/receiver1/omnipay-pzmpay)
+[![Latest Version](https://img.shields.io/packagist/v/receiver1/omnipay-pzmpay.svg?style=flat-square)](https://github.com/receiver1/omnipay-pzmpay/releases)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 
 ## Установка
@@ -39,13 +39,13 @@ if (!$purchaseResponse->isSuccessful()) {
 // Получаем идентификатор платежа в PZMPay
 $invoiceId = $purchaseResponse->getTransactionId(); 
 // Получаем ссылку на форму оплаты PZMPay
-$redirectUrl =$purchaseResponse->getRedirectUrl(); 
+$redirectUrl = $purchaseResponse->getRedirectUrl(); 
 ```
 
 ### Проверка платежа
 ```php
 $notification = $gateway->acceptNotification($data);
-if ($notification->getTransactionStatus() == NotificationInterface::STATUS_COMPLETED) {
+if ($notification->getTransactionStatus() === NotificationInterface::STATUS_COMPLETED) {
   /** @var TransactionModel $incomingTransaction */
   $incomingTransaction = $notification->getTransactionReference();
 

@@ -35,8 +35,8 @@ class NotificationRequest extends AbstractRequest implements NotificationInterfa
     $transaction = $this->data['object'];
     return new TransactionModel(
       intval($transaction['id']),
-      doubleval($transaction['amount']),
-      $transaction['currency'],
+      doubleval($transaction['amount']['value']),
+      $transaction['amount']['currency'],
       $transaction['status'],
       intval($transaction['created']),
       intval($transaction['updated']),
