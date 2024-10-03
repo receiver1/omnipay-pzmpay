@@ -8,7 +8,7 @@ use Omnipay\PZMPay\Model\TransactionModel;
 class FetchTransactionResponse extends AbstractResponse {
   public function getTransactionReference(): TransactionModel {
     return new TransactionModel(
-      intval($this->getData()['id']),
+      $this->getData()['id'],
       doubleval($this->getData()['amount']['value']),
       $this->getData()['amount']['currency'],
       $this->getData()['status'],

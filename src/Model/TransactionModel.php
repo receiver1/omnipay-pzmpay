@@ -3,7 +3,7 @@
 namespace Omnipay\PZMPay\Model;
 
 class TransactionModel {
-  private int $id;
+  private string $id;
   private float $amount;
   private string $currency;
   private string $status;
@@ -11,7 +11,7 @@ class TransactionModel {
   private int $updatedAt;
   private string $description;
 
-  public function __construct(int $id, float $amount, string $currency, string $status, int $createdAt, int $updatedAt, string $description) {
+  public function __construct(string $id, float $amount, string $currency, string $status, int $createdAt, int $updatedAt, string $description) {
     $this->id = $id;
     $this->amount = $amount;
     $this->currency = $currency;
@@ -21,7 +21,7 @@ class TransactionModel {
     $this->description = $description;
   }
 
-  public function getId() {
+  public function getId(): string {
     return $this->id;
   }
 

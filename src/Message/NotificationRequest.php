@@ -34,7 +34,7 @@ class NotificationRequest extends AbstractRequest implements NotificationInterfa
   public function getTransactionReference(): TransactionModel {
     $transaction = $this->data['object'];
     return new TransactionModel(
-      intval($transaction['id']),
+      $transaction['id'],
       doubleval($transaction['amount']['value']),
       $transaction['amount']['currency'],
       $transaction['status'],
