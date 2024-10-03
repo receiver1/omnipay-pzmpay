@@ -1,0 +1,26 @@
+{
+    "name": "receiver1/omnipay-pzmpay",
+    "type": "library",
+    "description": "PZMPay gateway for Omnipay",
+    "keywords": [
+        "omnipay",
+        "pzmpay"
+    ],
+    "homepage": "https://github.com/Receiver1/omnipay-pzmpay/",
+    "license": "MIT",
+    "require": {
+        "php": ">=7.1",
+        "ext-json": "*",
+        "omnipay/common": "^3.0"
+    },
+    "require-dev": {
+        "omnipay/tests": "^4.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Omnipay\\PZMPay\\": "src"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
