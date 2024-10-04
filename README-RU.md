@@ -1,57 +1,58 @@
 # Omnipay: PZMPay
-PZMPay online acquiring support for Omnipay
+Поддержка интернет-эквайринга PZMPay для Omnipay 
 
 [![Total Downloads](https://img.shields.io/packagist/dt/receiver1/omnipay-pzmpay.svg?style=flat-square)](https://packagist.org/packages/receiver1/omnipay-pzmpay)
 [![Latest Version](https://img.shields.io/packagist/v/receiver1/omnipay-pzmpay.svg?style=flat-square)](https://github.com/receiver1/omnipay-pzmpay/releases)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 
-## Already Implemented
-* Payment creation
-* Payment information
-* Incoming notifications
+## Уже реализовано
+* Создание платежа
+* Информация о платеже
+* Входящие уведомления
 
-## To Be Implemented
-* Payment cancellation
-* Project balance
-* Fiscalization under Federal Law 54
-* Testing mode
-* Error codes
+## Предстоит реализовать
+* Отмена платежа
+* Баланс проекта
+* Фискализация по ФЗ-54
+* Режим тестирования
+* Коды ошибок
 
-## Installation
+## Установка
 ```bash
 composer require league/omnipay receiver1/omnipay-pzmpay
 ```
 
-## Usage
-### Gateway Initialization
+## Использование
+
+### Инициализация шлюза
 ```php
-// Create a new payment gateway
+// Создаём новый платёжный шлюз
 $gateway = Omnipay::create('PZMPay');
 
-// Set the secret code
+// Устанавливаем секретный код
 $gateway->setSecretCode('secretCode');
 ```
 
-### Payment Creation
+### Создание платежа
 ```php
-// Create a new payment for 10 rubles 00 kopecks
+// Создаём новый платёж на сумму 10 руб. 00 коп.
 $purchaseResponse = $gateway->purchase([
   'amount' => 10,
   'currency' => 'RUB',
-  'description' => 'Balance top-up 1337 Cheats',
+  'description' => 'Пополнение баланса 1337 Cheats',
 ])->send();
 
 if (!$purchaseResponse->isSuccessful()) {
   throw new Exception($response->getMessage());
 }
 
-// Get the payment identifier in PZMPay
-$invoiceId = $purchaseResponse->getTransactionId();
-// Get the link to the PZMPay payment form
-$redirectUrl = $purchaseResponse->getRedirectUrl();
+// Получаем идентификатор платежа в PZMPay
+$invoiceId = $purchaseResponse->getTransactionId(); 
+// Получаем ссылку на форму оплаты PZMPay
+$redirectUrl = $purchaseResponse->getRedirectUrl(); 
 ```
 
-### Payment Verification
+### Проверка платежа
 ```php
 $notification = $gateway->acceptNotification($data);
 if ($notification->getTransactionStatus() === NotificationInterface::STATUS_COMPLETED) {
